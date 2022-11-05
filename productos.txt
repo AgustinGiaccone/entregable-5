@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "hilux",
+    "price": 7000000,
+    "Thumbnail": "toyota.png"
+  },
+  {
+    "id": 2,
+    "title": "Chevrolet S10",
+    "price": 8000000,
+    "thumbnail": "https://i.postimg.cc/bJ1Z4w2Q/chevrolet-s10.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Volkswagen Amarok",
+    "price": 10000000,
+    "thumbnail": "https://i.postimg.cc/jd6ST12r/amarokv6.jpg"
+  },
+  {
+    "id": 4,
+    "title": "ranger",
+    "price": "5000000000",
+    "Thumbnail": "pruebas.png"
+  },
+  {
+    "id": 5,
+    "title": "ajgkeg",
+    "price": "45679845",
+    "thumbnail": "prueba-kazam.png"
+  }
+]
