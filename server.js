@@ -1,19 +1,25 @@
 const express = require('express')
 const Contenedor = require('./Contenedor.js')
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8070
 const routerProductos = express.Router()
+
 routerProductos.use(express.urlencoded({extended:true}))
 routerProductos.use(express.json())
+
 const itemRouter = express.Router({mergeParams: true})
 const vehiculos = new Contenedor('productos.txt')
 const notFound = { error: "Producto no encontrado" };
+
+app.set('views', __dirname+ '/views')
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use('/api', routerProductos)
 
 routerProductos.use('/:userId',itemRouter)
 
-app.use(express.static(__dirname +'/public'))
+// app.use(express.static(__dirname +'/public'))
 
 app.use(express.urlencoded({extended:true}))
 
@@ -21,9 +27,16 @@ const servidor = app.listen(port, () => {
     console.log(`servidor en el http://localhost:${port}`)
 })
 
+routerProductos.get('/formulario', async (req, res) => {
+    const automovil = await vehiculos.getAll()
+    // res.send(automovil)
+    res.render('inicio-formulario.ejs', {automovil})
+})
+
 routerProductos.get('/productos', async (req, res) => {
     const automovil = await vehiculos.getAll()
-    res.send(automovil)
+    // res.send(automovil)
+    res.render('inicio-historial.ejs', {automovil})
 })
 
 itemRouter.get('/:id', async(req,res)=>{

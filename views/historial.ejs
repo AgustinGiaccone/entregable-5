@@ -1,0 +1,27 @@
+    <h2 style="color:crimson;">Historial</h2>
+
+    <% if(automovil.length > 0) { %>
+    <div class="table-responsive">
+        <table class="table table-dark">
+        <tr style="color: yellow;">
+            <th>id</th>
+            <th>title</th>
+            <th>price</th>
+            <th>thumbnail</th>
+        </tr>
+        <% for (const vehiculo of automovil) {%>
+        <tr>
+            <td><%=vehiculo.id%></td>
+            <td><%=vehiculo.title%></td>
+            <td><%=vehiculo.price%></td>
+            <td><img style="height: 100px;","w" src="<%=vehiculo.thumbnail%>" alt=""></td>
+        </tr>
+        <%};%>
+        </table>
+    </div>
+    <%}else{%>
+    <h3 class="alert alert-danger">No se encontraron datos</h3>
+    <%};%>
+    <form action="/api/formulario" method="get">
+        <button>volver</button>
+    </form>
