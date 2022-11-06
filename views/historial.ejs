@@ -13,15 +13,15 @@
         <tr>
             <td><%=vehiculo.id%></td>
             <td><%=vehiculo.title%></td>
-            <td><%=vehiculo.price%></td>
-            <td><img style="height: 100px;","w" src="<%=vehiculo.thumbnail%>" alt=""></td>
+            <td>$<%=vehiculo.price%></td>
+            <td><img height='100'src="<%=vehiculo.thumbnail%>" alt="sin imagen" width='140'></td>
         </tr>
         <%};%>
         </table>
     </div>
     <%}else{%>
-    <h3 class="alert alert-danger">No se encontraron datos</h3>
+    <h3 class="alert alert-danger">No se encontraron vehiculos</h3>
     <%};%>
-    <form action="/api/formulario" method="get">
-        <button>volver</button>
+    <form action="/" method="get">
+    <button>volver</button>
     </form>

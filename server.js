@@ -3,6 +3,7 @@ const Contenedor = require('./Contenedor.js')
 const app = express()
 const port = process.env.PORT || 8070
 const routerProductos = express.Router()
+const request = require ('request')
 
 routerProductos.use(express.urlencoded({extended:true}))
 routerProductos.use(express.json())
@@ -16,10 +17,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use('/api', routerProductos)
-
 routerProductos.use('/:userId',itemRouter)
-
-// app.use(express.static(__dirname +'/public'))
 
 app.use(express.urlencoded({extended:true}))
 
@@ -27,24 +25,29 @@ const servidor = app.listen(port, () => {
     console.log(`servidor en el http://localhost:${port}`)
 })
 
-routerProductos.get('/formulario', async (req, res) => {
+app.get('/', async (req, res) => {
     const automovil = await vehiculos.getAll()
-    // res.send(automovil)
     res.render('inicio-formulario.ejs', {automovil})
 })
 
-routerProductos.get('/productos', async (req, res) => {
+app.get('/productos', async (req, res) => {
     const automovil = await vehiculos.getAll()
-    // res.send(automovil)
     res.render('inicio-historial.ejs', {automovil})
+})
+
+app.post('/productos', async (req, res) => {
+    const {body}= req
+    const nuevoVehiculo = request.post('http://localhost:8070/api/productos')
+    .form(body)
+    res.redirect('/')
 })
 
 itemRouter.get('/:id', async(req,res)=>{
     const id = parseInt(req.params.id);
-    const producto = await vehiculos.getById(id);
+    const automovil = await vehiculos.getById(id);
     console.log('el id buscado es', id)
-    !producto && res.status(404).json(notFound);
-    res.status(200).json(producto);
+    !automovil && res.status(404).json(notFound);
+    res.status(200).json(automovil);
 })
 
 routerProductos.post('/productos',async(req,res)=>{
@@ -71,7 +74,6 @@ itemRouter.put('/:id', async(req,res)=>{
     const producto = await vehiculos.editById(id,title,price,thumbnail);
     const automovil = await vehiculos.getAll()
     res.send(automovil)
-    
 })
 
 servidor.on('error', error => console.log(`error ${error}`))
