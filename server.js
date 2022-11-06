@@ -3,7 +3,7 @@ const Contenedor = require('./Contenedor.js')
 const app = express()
 const port = process.env.PORT || 8070
 const routerProductos = express.Router()
-const request = require ('request')
+const axios = require ('axios')
 
 routerProductos.use(express.urlencoded({extended:true}))
 routerProductos.use(express.json())
@@ -37,8 +37,7 @@ app.get('/productos', async (req, res) => {
 
 app.post('/productos', async (req, res) => {
     const {body}= req
-    const nuevoVehiculo = request.post('http://localhost:8070/api/productos')
-    .form(body)
+    const nuevoVehiculo = axios.post('http://localhost:8070/api/productos',body)
     res.redirect('/')
 })
 
